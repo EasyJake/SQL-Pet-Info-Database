@@ -11,14 +11,14 @@ CREATE DATABASE rest_rant
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
--- Table: public.place
+-- Table: public.places
 
--- DROP TABLE public.place;
+-- DROP TABLE public.places;
 
-CREATE TABLE public.place
+CREATE TABLE public.places
 (
-    place_id serial NOT NULL DEFAULT,
-    place_name character varying COLLATE pg_catalog."default" NOT NULL,
+    place_id integer NOT NULL DEFAULT nextval('place_place_id_seq'::regclass),
+    name character varying COLLATE pg_catalog."default" NOT NULL,
     state character varying COLLATE pg_catalog."default",
     cuisines character varying COLLATE pg_catalog."default" NOT NULL,
     pic character varying COLLATE pg_catalog."default",
@@ -28,43 +28,40 @@ CREATE TABLE public.place
 
 TABLESPACE pg_default;
 
-ALTER TABLE public.place
+ALTER TABLE public.places
     OWNER to postgres;
 
--- Table: public.comment
+-- Table: public.comments
 
--- DROP TABLE public.comment;
+-- DROP TABLE public.comments;
 
-CREATE TABLE public.comment
-(
-    comment_id serial NOT NULL,
-    place_id smallint NOT NULL,
-    content character varying COLLATE pg_catalog."default",
-    start smallint NOT NULL,
-    rant boolean,
-    author character varying COLLATE pg_catalog."default",
-    CONSTRAINT comment_pkey PRIMARY KEY (comment_id),
-    CONSTRAINT comment_place_id_fkey FOREIGN KEY (place_id)
-        REFERENCES public.place (place_id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
+-- CREATE TABLE public.comments
+-- (
+--     comment_id integer NOT NULL DEFAULT nextval('comment_comment_id_seq'::regclass),
+--     place_id smallint NOT NULL,
+--     content character varying COLLATE pg_catalog."default",
+--     stars smallint NOT NULL,
+--     rant boolean,
+--     author character varying COLLATE pg_catalog."default",
+--     CONSTRAINT comment_pkey PRIMARY KEY (comment_id),
+--     CONSTRAINT comment_place_id_fkey FOREIGN KEY (place_id)
+--         REFERENCES public.places (place_id) MATCH SIMPLE
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION
+-- )
 
-TABLESPACE pg_default;
+-- TABLESPACE pg_default;
 
-ALTER TABLE public.comment
-    OWNER to postgres;
+-- ALTER TABLE public.comments
+--     OWNER to postgres;
 
-
--- CREATE TABLE comment (
--- 	comment_id serial NOT NULL,
--- 	place_id smallint NOT NULL,
--- 	content character varying, 
--- 	start smallint NOT NULL, 
--- 	rant boolean,
--- 	author character varying,
--- 	CONSTRAINT comment_pkey PRIMARY KEY (comment_id),
--- 	CONSTRAINT comment_place_id_fkey FOREIGN KEY (place_id) REFERENCES place (place_id)
--- );
-
-
+CREATE TABLE comments (
+	comment_id serial NOT NULL,
+	place_id smallint NOT NULL,
+	content character varying, 
+    stars smallint NOT NULL,
+	rant boolean,
+	author character varying,
+	CONSTRAINT comments_pkey PRIMARY KEY (comment_id),
+	CONSTRAINT comments_places_id_fkey FOREIGN KEY (place_id) REFERENCES places (place_id)
+);
