@@ -17,11 +17,11 @@ CREATE DATABASE rest_rant
 
 CREATE TABLE public.places
 (
-    place_id integer NOT NULL DEFAULT nextval('place_place_id_seq'::regclass),
-    name character varying COLLATE pg_catalog."default" NOT NULL,
-    state character varying COLLATE pg_catalog."default",
-    cuisines character varying COLLATE pg_catalog."default" NOT NULL,
-    pic character varying COLLATE pg_catalog."default",
+    place_id serial NOT NULL,
+    name character varying NOT NULL,
+    state character varying,
+    cuisines character varying,
+    pic character varying,
     founded smallint[],
     CONSTRAINT place_pkey PRIMARY KEY (place_id)
 )
