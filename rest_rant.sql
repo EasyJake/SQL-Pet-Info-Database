@@ -22,7 +22,7 @@ CREATE TABLE public.places
     state character varying,
     cuisines character varying,
     pic character varying,
-    founded smallint[],
+    founded integer,
     CONSTRAINT place_pkey PRIMARY KEY (place_id)
 )
 
