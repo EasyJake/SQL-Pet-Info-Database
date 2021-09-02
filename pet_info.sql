@@ -11,7 +11,5 @@ CREATE TABLE public.pets
     pet_age integer
 )
 
-TABLESPACE pg_default;
-
 -- ALTER TABLE public.pets
 --     OWNER to postgres;
